@@ -2,8 +2,31 @@ from django.http import HttpResponseBadRequest, HttpResponse
 from .lib.db import db
 import json
 from django.views.decorators.csrf import csrf_exempt
-from bson.objectid import ObjectId
 from bson import ObjectId
+
+
+@csrf_exempt
+def save_user_info (request):
+    required_fields = ['first_name', 'last_name', 'fb_token']
+
+    try:
+        if request.method != 'POST' or request.content_type != 'application/json':
+            raise Exception('request must be POST and application/json')
+
+        data = json.loads(request.body)
+
+        if any(field not in data for field in required_fields):
+            raise Exception('incorrect fields')
+
+        if 'user_id' in data:
+            db('users').update({ 'user_id' : ObjectId(data['user_id']) }, data)
+            return JsonResponse({ 'success' : 'updated user information' })
+
+        db('users').insert(data)
+        return JsonResponse({ 'success' : 'saved user information' })
+
+    except Exception, e:
+        return JsonResponse({'error' : str(e)})
 
 
 @csrf_exempt
@@ -30,10 +53,10 @@ def save_score (request):
 
         db('scores').insert({ 'score' : score, 'user' : user } )
 
-        return JsonResponse({'success' : 'inserted new score'})
+        return JsonResponse({ 'success' : 'inserted new score' })
 
     except Exception, e:
-        return JsonResponse({'error' : str(e)})
+        return JsonResponse({ 'error' : str(e) })
 
 @csrf_exempt
 def get_users_scores (request):
