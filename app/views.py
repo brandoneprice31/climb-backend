@@ -19,13 +19,15 @@ def save_user_info (request):
             raise Exception('incorrect fields')
 
         if 'user_id' in data:
-            db('users').update({ 'user_id' : ObjectId(data['user_id']) }, data)
+            db('users').update({ '_id' : ObjectId(data['user_id']) },
+                                { 'first_name' : data['first_name'], 'last_name' : data['last_name'], 'fb_token'   : data['fb_token'] })
             return JsonResponse({ 'success' : 'updated user information' })
 
-        db('users').insert(data)
+        db('users').insert({ 'first_name' : data['first_name'], 'last_name' : data['last_name'], 'fb_token'   : data['fb_token'] })
         return JsonResponse({ 'success' : 'saved user information' })
 
     except Exception, e:
+        raise e
         return JsonResponse({'error' : str(e)})
 
 
