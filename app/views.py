@@ -4,6 +4,9 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from bson import ObjectId
 
+@csrf_exempt
+def index(request):
+    return HttpResponse("Hello World!")
 
 @csrf_exempt
 def save_user_info (request):
