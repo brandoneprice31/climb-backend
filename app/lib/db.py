@@ -1,5 +1,5 @@
 from pymongo import MongoClient
 
 def db (collection):
-    client = MongoClient('mongodb://heroku_d3d5n4vx:dg9pkft99s9k4hp1v74qads3bs@ds157571.mlab.com:57571/heroku_d3d5n4vx')
+    client = MongoClient('mongodb://brandonprice:climb3131harvard@cluster0-shard-00-00-tdqdr.mongodb.net:27017,cluster0-shard-00-01-tdqdr.mongodb.net:27017,cluster0-shard-00-02-tdqdr.mongodb.net:27017/<DATABASE>?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin')
     return client['climb'][collection]

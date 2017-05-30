@@ -30,7 +30,6 @@ def save_user_info (request):
         return JsonResponse({ 'success' : 'saved user information' })
 
     except Exception, e:
-        raise e
         return JsonResponse({'error' : str(e)})
 
 
