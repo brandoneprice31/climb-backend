@@ -25,8 +25,7 @@ SECRET_KEY = 'juhg9t0x$1e05mj)bdy#pv8famuqs@a7$m7s!i5%w-=2^4^^m!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ['PYTHON_ENV'] != 'production'
 
-ALLOWED_HOSTS = ['brandonprice.org',
-                 '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app'
 ]
 
 MIDDLEWARE = [
