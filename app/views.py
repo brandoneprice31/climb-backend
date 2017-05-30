@@ -26,6 +26,9 @@ def save_user_info (request):
                                 { 'first_name' : data['first_name'], 'last_name' : data['last_name'], 'fb_token'   : data['fb_token'] })
             return JsonResponse({ 'success' : 'updated user information' })
 
+        if db('users').find_one({ 'fb_token' : data['fb_token'] }) != None:
+            raise Exception('fb token already exists')
+
         db('users').insert({ 'first_name' : data['first_name'], 'last_name' : data['last_name'], 'fb_token'   : data['fb_token'] })
         return JsonResponse({ 'success' : 'saved user information' })
 
