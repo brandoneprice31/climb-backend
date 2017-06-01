@@ -10,7 +10,7 @@ def index(request):
 
 @csrf_exempt
 def save_user_info (request):
-    required_fields = ['first_name', 'last_name', 'fb_token']
+    required_fields = []
 
     try:
         if request.method != 'POST' or request.content_type != 'application/json':
@@ -22,15 +22,15 @@ def save_user_info (request):
             raise Exception('incorrect fields')
 
         if 'user_id' in data:
-            db('users').update({ '_id' : ObjectId(data['user_id']) },
-                                { 'first_name' : data['first_name'], 'last_name' : data['last_name'], 'fb_token'   : data['fb_token'] })
+            new_data = { key : data[key] for key in data.keys() if key != 'user_id' }
+            db('users').update({ '_id' : ObjectId(data['user_id']) }, new_data)
             return JsonResponse({ 'success' : 'updated user information' })
 
-        if db('users').find_one({ 'fb_token' : data['fb_token'] }) != None:
-            raise Exception('fb token already exists')
+        if 'fb_id' in data and db('users').find_one({ 'fb_id' : data['fb_id'] }) != None:
+            raise Exception('fb id already exists')
 
-        db('users').insert({ 'first_name' : data['first_name'], 'last_name' : data['last_name'], 'fb_token'   : data['fb_token'] })
-        return JsonResponse({ 'success' : 'saved user information' })
+        user_id = str(db('users').insert(data))
+        return JsonResponse({ 'success' : 'saved user information', 'result' : { 'user_id' : user_id } })
 
     except Exception, e:
         return JsonResponse({'error' : str(e)})
