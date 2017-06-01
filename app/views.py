@@ -86,8 +86,8 @@ def get_users_scores (request):
             raise Exception("user " + str(user_id) + " doesn't exist")
 
         result = list(db('scores').find({ 'user._id' : user_id } ))
-        scores = sorted([score['score'] for score in result])
-        result = JSONEncoder().encode({   'success' :   'got users highscores', 'result'   :  scores   })
+        scores = sorted([score['score'] for score in result], reverse = True)
+        result = JSONEncoder().encode({   'success' :   'got users highscores', 'result' : { "scores" :  scores } })
 
         return JsonResponse(result)
 
