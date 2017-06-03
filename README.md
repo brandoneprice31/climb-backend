@@ -21,7 +21,7 @@ response:
 request:  
 {  
 &nbsp;&nbsp;"user_id"  :   string,  
-&nbsp;&nbsp;"score"   :   int
+&nbsp;&nbsp;"score"   :   int  
 }  
 
 response:  
@@ -36,5 +36,5 @@ request:
 
 response:  
 {  
-&nbsp;&nbsp;"result"   :  {   "scores"   :   [int]  }    
+&nbsp;&nbsp;"result"   :  {   "scores"   :   [int]  }  
 }  
