@@ -40,7 +40,7 @@ response:
 }  
 
 
-### POST /get_global_scores
+### GET /get_global_scores
 request:  
 { }  
 
