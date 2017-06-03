@@ -2,6 +2,7 @@
 
 ## Endpoints
 
+===================
 ### POST /save_user_info
 ###### + Saves / updates user information to the database.
 request:  
@@ -14,7 +15,7 @@ request:
 response:  
 { }  
 
-
+===================
 ### POST /save_score
 request:  
 {  
