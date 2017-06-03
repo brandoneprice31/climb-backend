@@ -15,3 +15,14 @@ response:
 {  
 &nbsp;&nbsp;"result"   :  {   "user_id"   :   string  }    
 }  
+
+
+### POST /save_score
+request:  
+{  
+&nbsp;&nbsp;"user_id"  :   string,  
+&nbsp;&nbsp;"score"   :   int
+}  
+
+response:  
+{ }  
