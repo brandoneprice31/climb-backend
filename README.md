@@ -5,7 +5,7 @@
 ### POST /save_user_info
 request:  
 {  
-  ~"first_name"  :   string,  
+  "first_name"  :   string,  
   "last_name"   :   string,  
   "fb_id"       :   string (optional),  
   "user_id"     :   string (optional, updates the user info if supplied)  
@@ -13,8 +13,5 @@ request:
 
 response:  
 {  
-  "result"   :  
-    {  
-      "user_id"   :   string  
-    }  
+  "result"   :  {   "user_id"   :   string  }    
 }  
