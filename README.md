@@ -17,20 +17,22 @@ response:
 
 ===================
 ### POST /save_score
+###### + Saves a new score to the database.
 request:  
 {  
-&nbsp;&nbsp;"user_id"  :   string,  
+&nbsp;&nbsp;"fb_id"  :   string,  
 &nbsp;&nbsp;"score"   :   int  
 }  
 
 response:  
 { }  
 
-
+===================
 ### POST /get_users_scores
+###### + Gets all of a user's scores from the database.
 request:  
 {  
-&nbsp;&nbsp;"user_id"  :   string,  
+&nbsp;&nbsp;"fb_id"  :   string,  
 }  
 
 response:  

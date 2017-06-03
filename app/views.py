@@ -36,7 +36,7 @@ def save_user_info (request):
 @csrf_exempt
 def save_score (request):
 
-    required_fields = ['user_id', 'score']
+    required_fields = ['fb_id', 'score']
 
     try:
         if request.method != 'POST' or request.content_type != 'application/json':
@@ -47,13 +47,13 @@ def save_score (request):
         if any(field not in data for field in required_fields):
             raise Exception('incorrect fields')
 
-        user_id = ObjectId(data['user_id'])
+        fb_id = data['fb_id']
         score = data['score']
 
         users = db('users')
-        user = users.find_one({ '_id' : user_id })
+        user = users.find_one({ 'fb_id' : fb_id })
         if user == None:
-            raise Exception("user " + str(user_id) + " doesn't exist")
+            raise Exception("user " + str(fb_id) + " doesn't exist")
 
         db('scores').insert({ 'score' : score, 'user' : user } )
 
@@ -65,7 +65,7 @@ def save_score (request):
 @csrf_exempt
 def get_users_scores (request):
 
-    required_fields = ['user_id']
+    required_fields = ['fb_id']
 
     try:
         if request.method != 'POST' or request.content_type != 'application/json':
@@ -76,13 +76,13 @@ def get_users_scores (request):
         if any(field not in data for field in required_fields):
             raise Exception('incorrect fields')
 
-        user_id = ObjectId(data['user_id'])
+        user_id = data['fb_id']
 
-        user = db('users').find_one({ '_id' : user_id })
+        user = db('users').find_one({ 'fb_id' : fb_id })
         if user == None:
-            raise Exception("user " + str(user_id) + " doesn't exist")
+            raise Exception("user " + str(fb_id) + " doesn't exist")
 
-        result = list(db('scores').find({ 'user._id' : user_id } ))
+        result = list(db('scores').find({ 'user.fb_id' : fb_id } ))
         scores = sorted([score['score'] for score in result], reverse = True)
         result = JSONEncoder().encode({   'success' :   'got users highscores', 'result' : { "scores" :  scores } })
 
