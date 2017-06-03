@@ -7,7 +7,7 @@ request:
 {  
 &nbsp;&nbsp;"first_name"  :   string,  
 &nbsp;&nbsp;"last_name"   :   string,  
-&nbsp;&nbsp;"fb_id"       :   string
+&nbsp;&nbsp;"fb_id"       :   string  
 }  
 
 response:  
