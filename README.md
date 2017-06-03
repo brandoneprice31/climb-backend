@@ -26,3 +26,15 @@ request:
 
 response:  
 { }  
+
+
+### POST /get_users_scores
+request:  
+{  
+&nbsp;&nbsp;"user_id"  :   string,  
+}  
+
+response:  
+{  
+&nbsp;&nbsp;"result"   :  {   "scores"   :   [int]  }    
+}  
