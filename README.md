@@ -3,18 +3,18 @@
 ## Endpoints
 
 ### POST /save_user_info
-request:\n
-{\n
-  "first_name"  :   string,\n
-  "last_name"   :   string,\n
-  "fb_id"       :   string (optional),\n
-  "user_id"     :   string (optional, updates the user info)\n
-}\n
+request:  
+{  
+  "first_name"  :   string,  
+  "last_name"   :   string,  
+  "fb_id"       :   string (optional),  
+  "user_id"     :   string (optional, updates the user info)  
+}  
 
-response:
-{
-  "result"   :
-    {
-      "user_id"   :   string
-    }
-}
+response:  
+{  
+  "result"   :  
+    {  
+      "user_id"   :   string  
+    }  
+}  
