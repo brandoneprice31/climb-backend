@@ -38,16 +38,3 @@ response:
 {  
 &nbsp;&nbsp;"result"   :  {   "scores"   :   [int]  }  
 }  
-
-
-### GET /get_global_scores
-request:  
-{ }  
-
-response:  
-{  
-&nbsp;&nbsp;"result"   :  
-&nbsp;&nbsp;&nbsp;&nbsp; {   "scores"   :   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[  { "first_name" : string, "last_name" : string, "score" : int} ]  
-&nbsp;&nbsp;&nbsp;&nbsp; }  
-}  
