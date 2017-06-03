@@ -38,3 +38,15 @@ response:
 {  
 &nbsp;&nbsp;"result"   :  {   "scores"   :   [int]  }  
 }  
+
+
+### POST /get_global_scores
+request:  
+{ }  
+
+response:  
+{  
+&nbsp;&nbsp;"result"   :  {   "scores"   :   [ { first_name: string, last_name: string, score: int} ]  }  
+}  
+
+  
