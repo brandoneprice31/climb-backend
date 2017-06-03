@@ -46,8 +46,8 @@ request:
 
 response:  
 {  
-&nbsp;&nbsp;"result"   :  {   "scores"   :   [  
-&nbsp;&nbsp;&nbsp;&nbsp;{ "first_name" : string, "last_name" : string, "score" : int}
-&nbsp;&nbsp;  ]  
-  }  
+&nbsp;&nbsp;"result"   :  
+&nbsp;&nbsp;&nbsp;&nbsp; {   "scores"   :   
+[  { "first_name" : string, "last_name" : string, "score" : int} ]  
+&nbsp;&nbsp;&nbsp;&nbsp; }  
 }  
