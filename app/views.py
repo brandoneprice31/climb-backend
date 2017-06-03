@@ -21,16 +21,13 @@ def save_user_info (request):
         if any(field not in data for field in required_fields):
             raise Exception('incorrect fields')
 
-        if 'user_id' in data:
-            new_data = { key : data[key] for key in data.keys() if key != 'user_id' }
-            db('users').update({ '_id' : ObjectId(data['user_id']) }, new_data)
+        if 'fb_id' in data and db('users').find_one({ 'fb_id' : data['fb_id'] }) != None:
+            new_data = { key : data[key] for key in data.keys() if key != 'fb_id' }
+            db('users').update({ 'fb_id' : data['fb_id'] }, new_data)
             return JsonResponse({ 'success' : 'updated user information' })
 
-        if 'fb_id' in data and db('users').find_one({ 'fb_id' : data['fb_id'] }) != None:
-            raise Exception('fb id already exists')
-
-        user_id = str(db('users').insert(data))
-        return JsonResponse({ 'success' : 'saved user information', 'result' : { 'user_id' : user_id } })
+        db('users').insert(data)
+        return JsonResponse({ 'success' : 'saved user information' })
 
     except Exception, e:
         return JsonResponse({'error' : str(e)})
