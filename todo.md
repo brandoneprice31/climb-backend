@@ -7,16 +7,17 @@
 ###### + returns true if fb_id already in the database
 
 ===================
-### POST /save_user_unlocks
+### POST /save_user_info (rename the other to save_user_id)
 ###### + saves the user's amount of coins, the climber sprites they have
-unlocked, and the spikeball sprites they have unlocked. The sprite unlock info
-should be a dictionary of [String : Bool], where the string is the color (see
-the UserDefaults I setup in GameViewController for reference).
+unlocked, the spikeball sprites they have unlocked, which climber sprite is
+chosen (lowercase string of the color) and which spikeball sprite is chosen
+(string). The sprite unlock info should be a dictionary of [String : Bool],
+where the string is the color (see the UserDefaults I setup in
+GameViewController for reference to all these).
 
 ===================
-### GET /get_user_unlocks
-###### + gets the user's unlock info (coins, climber sprites dictionary,
-spikeball sprites dictionary)
+### GET /get_user_info
+###### + gets the user's info described above
 
 ===================
 ### GET /get_friends_scores
@@ -33,14 +34,14 @@ does not have to be only best scores (one person can have multiple spots)
 ## Additional Endpoints for ad functionality
 
 ===================
-### UPDATE EXISTING: save_user_info
+### UPDATE EXISTING: save_user_id
 ###### + just add a boolean called no_ads that is initiated as false when a
 user's info is saved (I am going to make it so that save_user_info is called
 only when a user logs into the game for the first time)
 
 ===================
-### POST: /save_ad_status
-###### + make this so that I can toggle a user's no_ads boolean to true after a
+### POST: /update_ad_status
+###### + make this so that I can toggle a user's ads boolean to false after a
 purchase
 
 ===================
