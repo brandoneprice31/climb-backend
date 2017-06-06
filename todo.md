@@ -7,6 +7,9 @@
 ###### + returns true if fb_id already in the database
 
 ===================
+(NOTE: rename the save_user_info path you created to save_user_id. This endpoint
+is more aptly named save_user_info.)
+
 ### POST /save_user_info (rename the other to save_user_id)
 ###### + saves the user's amount of coins, the climber sprites they have
 unlocked, the spikeball sprites they have unlocked, which climber sprite is
@@ -34,7 +37,8 @@ does not have to be only best scores (one person can have multiple spots)
 ## Additional Endpoints for ad functionality
 
 ===================
-### UPDATE EXISTING: save_user_id
+### UPDATE: (currently save_user_info, but please rename to: ) save_user_id
+
 ###### + just add a boolean called no_ads that is initiated as false when a
 user's info is saved (I am going to make it so that save_user_info is called
 only when a user logs into the game for the first time)

@@ -3,7 +3,7 @@
 ## Endpoints
 
 ===================
-### POST /save_user_id
+### POST /save_user_info
 ###### + Saves / updates user information to the database.
 request:
 {
