@@ -7,20 +7,36 @@
 ###### + returns true if fb_id already in the database
 
 ===================
-(NOTE: rename the save_user_info path you created to save_user_id. This endpoint
-is more aptly named save_user_info.)
+*UPDATE OF CURRENT ENDPOINT*
+### POST /create_user
+(NOTE: this is an edit of the current save_user_info path. Please re-write that
+path with the new name and the following info)
+###### + this will initiate a user's information. Their fb_id, first name, last
+name will all be saved. The database will also create default values for in-game
+stats. This includes: the amount of coins the user has (0), the climber sprites
+unlocked, the spikeball sprites unlocked, which climber sprite is currently
+chosen, which spikeball spite is currently chosen, and how many extra lives they
+have (0), and a boolean called ads initiated as true. These default values are
+set in the GameViewController right now as UserDefaults. Look at the initial
+values I create there to see what these initial values should be.
 
-### POST /save_user_info (rename the other to save_user_id)
+### POST /save_user_info (rename the other to create_user)
 ###### + saves the user's amount of coins, the climber sprites they have
 unlocked, the spikeball sprites they have unlocked, which climber sprite is
-chosen (lowercase string of the color) and which spikeball sprite is chosen
-(string). The sprite unlock info should be a dictionary of [String : Bool],
-where the string is the color (see the UserDefaults I setup in
-GameViewController for reference to all these).
+chosen (lowercase string of the color), which spikeball sprite is chosen,
+how many extra lives they have, and the ads boolean. The sprite unlock info
+should be a dictionary of [String : Bool], where the string is the color (see
+the UserDefaults I setup in GameViewController for reference to all these).
 
 ===================
 ### GET /get_user_info
 ###### + gets the user's info described above
+
+===================
+### POST /update_user_info
+###### + given a fb_id, I want to be able to update the coins, climber sprites,
+spikeball sprites, current climber, current spikeball, extra lives, and ads
+categories. We don't need to touch the name fields.
 
 ===================
 ### GET /get_friends_scores
@@ -31,23 +47,3 @@ list of dictionaries of {first_name, last_name, score}
 ### GET /get_global_scores
 ###### + gets the top 100 global scores {first_name, last_name, score}. This
 does not have to be only best scores (one person can have multiple spots)
-
-
-
-## Additional Endpoints for ad functionality
-
-===================
-### UPDATE: (currently save_user_info, but please rename to: ) save_user_id
-
-###### + just add a boolean called no_ads that is initiated as false when a
-user's info is saved (I am going to make it so that save_user_info is called
-only when a user logs into the game for the first time)
-
-===================
-### POST: /update_ad_status
-###### + make this so that I can toggle a user's ads boolean to false after a
-purchase
-
-===================
-### GET /check_ad_status
-###### + returns the no_ads boolean status
