@@ -134,3 +134,37 @@ response:
 &nbsp;&nbsp;&nbsp;&nbsp;]  
 &nbsp;&nbsp;}  
 }  
+
+===================
+### GET /get_global_scores
+###### + Gets all the top 100 scores.
+request:
+{}  
+
+response:  
+{  
+&nbsp;&nbsp;"result" : {  
+&nbsp;&nbsp;&nbsp;&nbsp;"scores" : [  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"first_name" : string,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"last_name" : string,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"score" : int  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}  
+&nbsp;&nbsp;&nbsp;&nbsp;]  
+&nbsp;&nbsp;}  
+}  
+
+===================
+### GET /get_rank
+###### + Gets the user's global rank.
+request:  
+{  
+&nbsp;&nbsp;"result" : string  
+}  
+
+response:  
+{  
+&nbsp;&nbsp;"result" : {  
+&nbsp;&nbsp;&nbsp;&nbsp;"rank" : int  
+&nbsp;&nbsp;}  
+}  

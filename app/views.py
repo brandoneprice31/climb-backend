@@ -179,6 +179,7 @@ def get_users_scores (request):
     except Exception, e:
         return JsonResponse({'error' : str(e)})
 
+
 @csrf_exempt
 def get_friends_scores (request):
 
@@ -208,7 +209,46 @@ def get_friends_scores (request):
         return JsonResponse({'error' : str(e)})
 
 
+@csrf_exempt
+def get_global_scores (request):
 
+    required_fields = []
+
+    try:
+        if request.method != 'POST' or request.content_type != 'application/json':
+            raise Exception('request must be POST and application/json')
+
+        data = json.loads(request.body)
+
+        if any(field not in data for field in required_fields):
+            raise Exception('incorrect fields')
+
+        scores = db('scores').find({}).sort([('score', -1 )]).limit(100)
+        result = map(lambda score:
+            {   'first_name' : score['user']['first_name'],
+                'last_name' : score['user']['last_name'],
+                'score' : score['score']
+            }, scores)
+        result = {   'success' :   'got global highscores', 'result' : { "scores" :  result } }
+        return JsonResponse(result)
+
+    except Exception, e:
+        return JsonResponse({'error' : str(e)})
+
+@csrf_exempt
+def get_rank (request):
+
+    required_fields = ['fb_id']
+
+    try:
+        if request.method != 'POST' or request.content_type != 'application/json':
+            raise Exception('request must be POST and application/json')
+
+        result = {   'success' :   'got rank', 'result' : { "rank" :  31 } }
+        return JsonResponse(result)
+
+    except Exception, e:
+        return JsonResponse({'error' : str(e)})
 
 
 
