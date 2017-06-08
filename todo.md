@@ -10,7 +10,8 @@
 *UPDATE OF CURRENT ENDPOINT*
 ### POST /create_user
 (NOTE: this is an edit of the current save_user_info path. Please re-write that
-path with the new name and the following info)
+path with the new name and the following info. Also, save_user_info just doesn't
+work right now.)
 ###### + this will initiate a user's information. Their fb_id, first name, last
 name will all be saved. The database will also create default values for in-game
 stats. This includes: the amount of coins the user has (0), the climber sprites
