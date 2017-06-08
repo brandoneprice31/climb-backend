@@ -137,7 +137,7 @@ response:
 
 ===================
 ### GET /get_global_scores
-###### + Gets all the top 100 scores.
+###### + Gets the top 100 scores.
 request:
 {}  
 
@@ -157,9 +157,9 @@ response:
 ===================
 ### GET /get_rank
 ###### + Gets the user's global rank.
-request:  
+*request*:  
 {  
-&nbsp;&nbsp;"result" : string  
+&nbsp;&nbsp;"fb_id" : string  
 }  
 
 response:  
