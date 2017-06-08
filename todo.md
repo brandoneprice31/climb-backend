@@ -17,10 +17,6 @@ should be a dictionary of [String : Bool], where the string is the color (see
 the UserDefaults I setup in GameViewController for reference to all these).
 
 ===================
-### GET /get_user_info
-###### + gets the user's info described above
-
-===================
 ### POST /update_user_info
 ###### + given a fb_id, I want to be able to update the coins, climber sprites,
 spikeball sprites, current climber, current spikeball, extra lives, and ads
