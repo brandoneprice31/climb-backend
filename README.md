@@ -5,14 +5,14 @@
 ===================
 ### POST /create_user
 ###### + Creates a new user.
-request:
+**request:**  
 {
 &nbsp;&nbsp;"first_name"  :   string,
 &nbsp;&nbsp;"last_name"   :   string,
 &nbsp;&nbsp;"fb_id"       :   string
 }
 
-response:
+**response:**  
 {  
 &nbsp;&nbsp;"result" : {  
 &nbsp;&nbsp;&nbsp;&nbsp;"user" : {  
@@ -33,12 +33,12 @@ response:
 ===================
 ### POST /get_user_info
 ###### + Gets the user's info from the database.
-request:
+**request:**  
 {
 &nbsp;&nbsp;"fb_id"  :   string
 }
 
-response:
+**response:**  
 {  
 &nbsp;&nbsp;"result" : {  
 &nbsp;&nbsp;&nbsp;&nbsp;"user" : {  
@@ -59,7 +59,7 @@ response:
 ===================
 ### POST /save_user_info
 ###### + Updates the user info in the database.
-request:
+**request:**  
 {
 &nbsp;&nbsp;"fb_id"  :   string
 &nbsp;&nbsp;"sprites" (optional) :   {  
@@ -70,7 +70,7 @@ request:
 &nbsp;&nbsp;"extra_lives" (optional) : int,  
 }  
 
-response:
+**response:**  
 {  
 &nbsp;&nbsp;"result" : {  
 &nbsp;&nbsp;&nbsp;&nbsp;"user" : {  
@@ -91,24 +91,24 @@ response:
 ===================
 ### POST /save_score
 ###### + Saves a new score to the database.
-request:
+**request:**  
 {
 &nbsp;&nbsp;"fb_id"  :   string,
 &nbsp;&nbsp;"score"   :   int
 }
 
-response:
+**response:**  
 { }
 
 ===================
 ### GET /get_users_scores
 ###### + Gets all of a user's scores from the database.
-request:
+**request:**  
 {
 &nbsp;&nbsp;"fb_id"  :   string,
 }
 
-response:  
+**response:**  
 {  
 &nbsp;&nbsp;"result"   :  {   "scores"   :   [int]  }  
 }  
@@ -116,12 +116,12 @@ response:
 ===================
 ### GET /get_friends_scores
 ###### + Gets all of the scores from a list of id's.
-request:
+**request:**  
 {  
 &nbsp;&nbsp;"friend_ids" : [string]  
 }  
 
-response:  
+**response:**  
 {  
 &nbsp;&nbsp;"result" : {  
 &nbsp;&nbsp;&nbsp;&nbsp;"scores" : [  
@@ -138,10 +138,10 @@ response:
 ===================
 ### GET /get_global_scores
 ###### + Gets the top 100 scores.
-request:
+**request:**  
 {}  
 
-response:  
+**response:**  
 {  
 &nbsp;&nbsp;"result" : {  
 &nbsp;&nbsp;&nbsp;&nbsp;"scores" : [  
@@ -157,12 +157,12 @@ response:
 ===================
 ### GET /get_rank
 ###### + Gets the user's global rank.
-**request**:  
+**request:**  
 {  
 &nbsp;&nbsp;"fb_id" : string  
 }  
 
-response:  
+**response:**  
 {  
 &nbsp;&nbsp;"result" : {  
 &nbsp;&nbsp;&nbsp;&nbsp;"rank" : int  
