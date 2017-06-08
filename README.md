@@ -4,7 +4,7 @@
 
 ===================
 ### POST /create_user
-###### + Saves user information to the database.
+###### + Creates a new user.
 request:
 {
 &nbsp;&nbsp;"first_name"  :   string,
@@ -29,6 +29,32 @@ response:
 &nbsp;&nbsp;&nbsp;&nbsp;}  
 &nbsp;&nbsp;}  
 }  
+
+===================
+### POST /get_user_info
+###### + Gets the user's info from the database.
+request:
+{
+&nbsp;&nbsp;"fb_id"  :   string
+}
+
+response:
+{  
+&nbsp;&nbsp;"result" : {  
+&nbsp;&nbsp;&nbsp;&nbsp;"user" : {  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"fb_id" : string,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"first_name" : string,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"last_name" : string,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"coins" : int,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"sprites" : {  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"climber" : [int],  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"spikeball" : [int]  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"extra_lives" : int,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"ads" : bool  
+&nbsp;&nbsp;&nbsp;&nbsp;}  
+&nbsp;&nbsp;}  
+}
 
 ===================
 ### POST /save_score

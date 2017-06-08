@@ -9,6 +9,30 @@ def index(request):
     return HttpResponse("Hello World!")
 
 @csrf_exempt
+def get_user_info(request):
+    required_fields = ['fb_id']
+
+    try:
+        if request.method != 'POST' or request.content_type != 'application/json':
+            raise Exception('request must be POST and application/json')
+
+        data = json.loads(request.body)
+
+        if any(field not in data for field in required_fields):
+            raise Exception('incorrect fields')
+
+        user = db('users').find_one({ 'fb_id' : data['fb_id'] })
+        if user == None:
+            raise Exception('user doesnt exist')
+
+        result = JSONEncoder().encode({ 'success' : 'got user information', 'result' :  { 'user' : user } })
+        return JsonResponse(result)
+
+    except Exception, e:
+        return JsonResponse({'error' : str(e)})
+
+
+@csrf_exempt
 def create_user (request):
     required_fields = ['first_name', 'last_name', 'fb_id']
 
