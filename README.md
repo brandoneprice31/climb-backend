@@ -157,7 +157,7 @@ response:
 ===================
 ### GET /get_rank
 ###### + Gets the user's global rank.
-*request*:  
+**request**:  
 {  
 &nbsp;&nbsp;"fb_id" : string  
 }  
