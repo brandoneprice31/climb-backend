@@ -20,7 +20,7 @@ response:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"first_name" : string,  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"last_name" : string,  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"coins" : int,  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"sprites" : {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"sprites" : {  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"climber" : [int],  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"spikeball" : [int]  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},  
