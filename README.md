@@ -54,6 +54,38 @@ response:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"ads" : bool  
 &nbsp;&nbsp;&nbsp;&nbsp;}  
 &nbsp;&nbsp;}  
+}  
+
+===================
+### POST /update_user_info
+###### + Updates the user info in the database.
+request:
+{
+&nbsp;&nbsp;"fb_id"  :   string
+&nbsp;&nbsp;"sprites" (optional) :   {  
+&nbsp;&nbsp;&nbsp;&nbsp;"climber" : [int],  
+&nbsp;&nbsp;&nbsp;&nbsp;"spikeball" : [int],  
+&nbsp;&nbsp;},  
+&nbsp;&nbsp;"ads" (optional) : bool,  
+&nbsp;&nbsp;"extra_lives" (optional) : int,  
+}  
+
+response:
+{  
+&nbsp;&nbsp;"result" : {  
+&nbsp;&nbsp;&nbsp;&nbsp;"user" : {  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"fb_id" : string,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"first_name" : string,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"last_name" : string,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"coins" : int,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"sprites" : {  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"climber" : [int],  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"spikeball" : [int]  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"extra_lives" : int,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"ads" : bool  
+&nbsp;&nbsp;&nbsp;&nbsp;}  
+&nbsp;&nbsp;}  
 }
 
 ===================

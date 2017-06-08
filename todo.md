@@ -3,10 +3,6 @@
 ## Endpoints TODO
 
 ===================
-### GET /check_fb_id
-###### + returns true if fb_id already in the database
-
-===================
 *UPDATE OF CURRENT ENDPOINT*
 ### POST /save_user_info (rename the other to create_user)
 ###### + saves the user's amount of coins, the climber sprites they have
