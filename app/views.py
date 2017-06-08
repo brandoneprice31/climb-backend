@@ -108,9 +108,9 @@ def save_user_info (request):
 
         db('users').update_one({ 'fb_id' : fb_id }, {'$set' : new_data} )
         user = db('users').find_one({ 'fb_id' : fb_id })
-        res = JSONEncoder().encode(user)
+        result = JSONEncoder().encode({ 'success' : 'updated user info', 'result' : { 'user' : user } })
 
-        return JsonResponse({ 'success' : 'updated user info', 'result' : res })
+        return JsonResponse(result)
 
     except Exception, e:
         return JsonResponse({ 'error' : str(e) })
@@ -138,7 +138,12 @@ def save_score (request):
         if user == None:
             raise Exception("user " + str(fb_id) + " doesn't exist")
 
-        db('scores').insert({ 'score' : score, 'user' : user } )
+        db('scores').insert({   'score' : score,
+                                'user' : {
+                                    'first_name' : user['first_name'],
+                                    'last_name' : user['last_name'],
+                                    'fb_id' : user['fb_id']
+                                } } )
 
         return JsonResponse({ 'success' : 'inserted new score' })
 
@@ -173,6 +178,37 @@ def get_users_scores (request):
 
     except Exception, e:
         return JsonResponse({'error' : str(e)})
+
+@csrf_exempt
+def get_friends_scores (request):
+
+    required_fields = ['friend_ids']
+
+    try:
+        if request.method != 'POST' or request.content_type != 'application/json':
+            raise Exception('request must be POST and application/json')
+
+        data = json.loads(request.body)
+
+        if any(field not in data for field in required_fields):
+            raise Exception('incorrect fields')
+
+        friend_ids = data['friend_ids']
+        friends_scores = db('scores').find({ 'user.fb_id' : { '$in' : friend_ids } })
+        result = map(lambda score:
+            {   'first_name' : score['user']['first_name'],
+                'last_name' : score['user']['last_name'],
+                'fb_id' : score['user']['fb_id'],
+                'score' : score['score']
+            }, friends_scores)
+        result = {   'success' :   'got friends highscores', 'result' : { "scores" :  result } }
+        return JsonResponse(result)
+
+    except Exception, e:
+        return JsonResponse({'error' : str(e)})
+
+
+
 
 
 

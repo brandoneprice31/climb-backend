@@ -111,4 +111,26 @@ request:
 response:
 {
 &nbsp;&nbsp;"result"   :  {   "scores"   :   [int]  }
+}  
+
+===================
+### GET /get_friends_scores
+###### + Gets all of the scores from a list of id's.
+request:
+{
+&nbsp;&nbsp;"friend_ids"  :   [string],
 }
+
+response:
+{
+&nbsp;&nbsp;"result" : {  
+&nbsp;&nbsp;&nbsp;&nbsp;"scores" : [  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"first_name" : string,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"last_name" : string,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"fb_id" : string,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"score" : int
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;]
+&nbsp;&nbsp;}
+}  
