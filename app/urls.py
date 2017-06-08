@@ -5,5 +5,5 @@ urlpatterns = [
     url(r'^$', index),
     url(r'^save_score$', save_score),
     url(r'^get_users_scores$', get_users_scores),
-    url(r'^save_user_info$', save_user_info)
+    url(r'^create_user$', create_user)
 ]

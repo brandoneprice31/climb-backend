@@ -9,8 +9,8 @@ def index(request):
     return HttpResponse("Hello World!")
 
 @csrf_exempt
-def save_user_info (request):
-    required_fields = []
+def create_user (request):
+    required_fields = ['first_name', 'last_name', 'fb_id']
 
     try:
         if request.method != 'POST' or request.content_type != 'application/json':
@@ -21,13 +21,25 @@ def save_user_info (request):
         if any(field not in data for field in required_fields):
             raise Exception('incorrect fields')
 
-        if 'fb_id' in data and db('users').find_one({ 'fb_id' : data['fb_id'] }) != None:
-            new_data = { key : data[key] for key in data.keys() if key != 'fb_id' }
-            db('users').update({ 'fb_id' : data['fb_id'] }, new_data)
-            return JsonResponse({ 'success' : 'updated user information' })
+        if db('users').find_one({ 'fb_id' : data['fb_id'] }) != None:
+            raise Exception('user already exists')
 
-        db('users').insert(data)
-        return JsonResponse({ 'success' : 'saved user information' })
+        user = {
+                'fb_id' : data['fb_id'],
+                'first_name' : data['first_name'],
+                'last_name' : data['last_name'],
+                'coins' : 0,
+                'sprites' : {
+                    'climber' : [],
+                    'spikeball' : []
+                },
+                'extra_lives' : 0,
+                'ads' : True
+        }
+
+        db('users').insert(user)
+        result = JSONEncoder().encode({ 'success' : 'saved user information', 'result' :  { 'user' : user } })
+        return JsonResponse(result)
 
     except Exception, e:
         return JsonResponse({'error' : str(e)})

@@ -8,18 +8,6 @@
 
 ===================
 *UPDATE OF CURRENT ENDPOINT*
-### POST /create_user
-(NOTE: this is an edit of the current save_user_info path. Please re-write that
-path with the new name and the following info)
-###### + this will initiate a user's information. Their fb_id, first name, last
-name will all be saved. The database will also create default values for in-game
-stats. This includes: the amount of coins the user has (0), the climber sprites
-unlocked, the spikeball sprites unlocked, which climber sprite is currently
-chosen, which spikeball spite is currently chosen, and how many extra lives they
-have (0), and a boolean called ads initiated as true. These default values are
-set in the GameViewController right now as UserDefaults. Look at the initial
-values I create there to see what these initial values should be.
-
 ### POST /save_user_info (rename the other to create_user)
 ###### + saves the user's amount of coins, the climber sprites they have
 unlocked, the spikeball sprites they have unlocked, which climber sprite is
