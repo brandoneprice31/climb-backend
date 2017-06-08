@@ -108,21 +108,21 @@ request:
 &nbsp;&nbsp;"fb_id"  :   string,
 }
 
-response:
-{
-&nbsp;&nbsp;"result"   :  {   "scores"   :   [int]  }
+response:  
+{  
+&nbsp;&nbsp;"result"   :  {   "scores"   :   [int]  }  
 }  
 
 ===================
 ### GET /get_friends_scores
 ###### + Gets all of the scores from a list of id's.
 request:
-{
-&nbsp;&nbsp;"friend_ids"  :   [string],
-}
+{  
+&nbsp;&nbsp;"friend_ids" : [string]  
+}  
 
-response:
-{
+response:  
+{  
 &nbsp;&nbsp;"result" : {  
 &nbsp;&nbsp;&nbsp;&nbsp;"scores" : [  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{  
