@@ -70,7 +70,7 @@ def create_user (request):
 
 
 @csrf_exempt
-def update_user_info (request):
+def save_user_info (request):
 
     required_fields = ['fb_id']
 

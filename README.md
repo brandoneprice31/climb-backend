@@ -57,7 +57,7 @@ response:
 }  
 
 ===================
-### POST /update_user_info
+### POST /save_user_info
 ###### + Updates the user info in the database.
 request:
 {
