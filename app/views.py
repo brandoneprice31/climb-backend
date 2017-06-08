@@ -9,8 +9,8 @@ def index(request):
     return HttpResponse("Hello World!")
 
 @csrf_exempt
-def save_user_info (request):
-    required_fields = []
+def get_user_info(request):
+    required_fields = ['fb_id']
 
     try:
         if request.method != 'POST' or request.content_type != 'application/json':
@@ -21,16 +21,99 @@ def save_user_info (request):
         if any(field not in data for field in required_fields):
             raise Exception('incorrect fields')
 
-        if 'fb_id' in data and db('users').find_one({ 'fb_id' : data['fb_id'] }) != None:
-            new_data = { key : data[key] for key in data.keys() if key != 'fb_id' }
-            db('users').update({ 'fb_id' : data['fb_id'] }, new_data)
-            return JsonResponse({ 'success' : 'updated user information' })
+        user = db('users').find_one({ 'fb_id' : data['fb_id'] })
+        if user == None:
+            raise Exception('user doesnt exist')
 
-        db('users').insert(data)
-        return JsonResponse({ 'success' : 'saved user information' })
+        result = JSONEncoder().encode({ 'success' : 'got user information', 'result' :  { 'user' : user } })
+        return JsonResponse(result)
 
     except Exception, e:
         return JsonResponse({'error' : str(e)})
+
+
+@csrf_exempt
+def create_user (request):
+    required_fields = ['first_name', 'last_name', 'fb_id']
+
+    try:
+        if request.method != 'POST' or request.content_type != 'application/json':
+            raise Exception('request must be POST and application/json')
+
+        data = json.loads(request.body)
+
+        if any(field not in data for field in required_fields):
+            raise Exception('incorrect fields')
+
+        if db('users').find_one({ 'fb_id' : data['fb_id'] }) != None:
+            raise Exception('user already exists')
+
+        user = {
+                'fb_id' : data['fb_id'],
+                'first_name' : data['first_name'],
+                'last_name' : data['last_name'],
+                'coins' : 0,
+                'sprites' : {
+                    'climber' : [],
+                    'spikeball' : []
+                },
+                'extra_lives' : 0,
+                'ads' : True
+        }
+
+        db('users').insert(user)
+        result = JSONEncoder().encode({ 'success' : 'saved user information', 'result' :  { 'user' : user } })
+        return JsonResponse(result)
+
+    except Exception, e:
+        return JsonResponse({'error' : str(e)})
+
+
+@csrf_exempt
+def save_user_info (request):
+
+    required_fields = ['fb_id']
+
+    try:
+        if request.method != 'POST' or request.content_type != 'application/json':
+            raise Exception('request must be POST and application/json')
+
+        data = json.loads(request.body)
+
+        if any(field not in data for field in required_fields):
+            raise Exception('incorrect fields')
+
+        fb_id = data['fb_id']
+
+        if db('users').find_one({ 'fb_id' : fb_id }) == None:
+            raise Exception('user doesnt exist')
+
+        new_data = {}
+
+        # Sprites.
+        if 'sprites' in data:
+            sprites = data['sprites']
+            if 'climber' in sprites:
+                new_data['sprites.climber'] = sprites['climber']
+            if 'spikeball' in sprites:
+                new_data['sprites.spikeball'] = sprites['spikeball']
+
+        # Extra lives.
+        if 'extra_lives' in data:
+            new_data['extra_lives'] = data['extra_lives']
+
+        # Ads.
+        if 'ads' in data:
+            new_data['ads'] = data['ads']
+
+        db('users').update_one({ 'fb_id' : fb_id }, {'$set' : new_data} )
+        user = db('users').find_one({ 'fb_id' : fb_id })
+        result = JSONEncoder().encode({ 'success' : 'updated user info', 'result' : { 'user' : user } })
+
+        return JsonResponse(result)
+
+    except Exception, e:
+        return JsonResponse({ 'error' : str(e) })
 
 
 @csrf_exempt
@@ -55,7 +138,12 @@ def save_score (request):
         if user == None:
             raise Exception("user " + str(fb_id) + " doesn't exist")
 
-        db('scores').insert({ 'score' : score, 'user' : user } )
+        db('scores').insert({   'score' : score,
+                                'user' : {
+                                    'first_name' : user['first_name'],
+                                    'last_name' : user['last_name'],
+                                    'fb_id' : user['fb_id']
+                                } } )
 
         return JsonResponse({ 'success' : 'inserted new score' })
 
@@ -86,6 +174,77 @@ def get_users_scores (request):
         scores = sorted([score['score'] for score in result], reverse = True)
         result = JSONEncoder().encode({   'success' :   'got users highscores', 'result' : { "scores" :  scores } })
 
+        return JsonResponse(result)
+
+    except Exception, e:
+        return JsonResponse({'error' : str(e)})
+
+
+@csrf_exempt
+def get_friends_scores (request):
+
+    required_fields = ['friend_ids']
+
+    try:
+        if request.method != 'POST' or request.content_type != 'application/json':
+            raise Exception('request must be POST and application/json')
+
+        data = json.loads(request.body)
+
+        if any(field not in data for field in required_fields):
+            raise Exception('incorrect fields')
+
+        friend_ids = data['friend_ids']
+        friends_scores = db('scores').find({ 'user.fb_id' : { '$in' : friend_ids } })
+        result = map(lambda score:
+            {   'first_name' : score['user']['first_name'],
+                'last_name' : score['user']['last_name'],
+                'fb_id' : score['user']['fb_id'],
+                'score' : score['score']
+            }, friends_scores)
+        result = {   'success' :   'got friends highscores', 'result' : { "scores" :  result } }
+        return JsonResponse(result)
+
+    except Exception, e:
+        return JsonResponse({'error' : str(e)})
+
+
+@csrf_exempt
+def get_global_scores (request):
+
+    required_fields = []
+
+    try:
+        if request.method != 'POST' or request.content_type != 'application/json':
+            raise Exception('request must be POST and application/json')
+
+        data = json.loads(request.body)
+
+        if any(field not in data for field in required_fields):
+            raise Exception('incorrect fields')
+
+        scores = db('scores').find({}).sort([('score', -1 )]).limit(100)
+        result = map(lambda score:
+            {   'first_name' : score['user']['first_name'],
+                'last_name' : score['user']['last_name'],
+                'score' : score['score']
+            }, scores)
+        result = {   'success' :   'got global highscores', 'result' : { "scores" :  result } }
+        return JsonResponse(result)
+
+    except Exception, e:
+        return JsonResponse({'error' : str(e)})
+
+@csrf_exempt
+def get_rank (request):
+
+    required_fields = ['fb_id']
+
+    try:
+        if request.method != 'POST' or request.content_type != 'application/json':
+            raise Exception('request must be POST and application/json')
+
+        result = {   'success' :   'got rank', 'result' : { "rank" :  31 } }
         return JsonResponse(result)
 
     except Exception, e:
