@@ -164,7 +164,7 @@ def get_users_scores (request):
         if any(field not in data for field in required_fields):
             raise Exception('incorrect fields')
 
-        user_id = data['fb_id']
+        fb_id = data['fb_id']
 
         user = db('users').find_one({ 'fb_id' : fb_id })
         if user == None:
