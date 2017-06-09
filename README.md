@@ -68,6 +68,7 @@
 &nbsp;&nbsp;},
 &nbsp;&nbsp;"ads" (optional) : bool,
 &nbsp;&nbsp;"extra_lives" (optional) : int,
+&nbsp;&nbsp;"coins" (optional) : int,
 }
 
 **response:**

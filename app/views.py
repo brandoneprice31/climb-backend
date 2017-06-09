@@ -106,6 +106,10 @@ def save_user_info (request):
         if 'ads' in data:
             new_data['ads'] = data['ads']
 
+        # Coins.
+        if 'coins' in data:
+            new_data['coins'] = data['coins']
+
         db('users').update_one({ 'fb_id' : fb_id }, {'$set' : new_data} )
         user = db('users').find_one({ 'fb_id' : fb_id })
         result = JSONEncoder().encode({ 'success' : 'updated user info', 'result' : { 'user' : user } })
