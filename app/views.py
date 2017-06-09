@@ -244,7 +244,15 @@ def get_rank (request):
         if request.method != 'POST' or request.content_type != 'application/json':
             raise Exception('request must be POST and application/json')
 
-        result = {   'success' :   'got rank', 'result' : { "rank" :  31 } }
+        data = json.loads(request.body)
+
+        if any(field not in data for field in required_fields):
+            raise Exception('incorrect fields')
+
+        users_highest_score = db('scores').find({ 'user.fb_id' : data['fb_id'] }).sort([('score', -1 )]))[0]
+        rank = len(db('scores').find({ 'score' : { '$gt' : users_highest_score } }))
+
+        result = {   'success' :   'got rank', 'result' : { "rank" :  rank } }
         return JsonResponse(result)
 
     except Exception, e:
