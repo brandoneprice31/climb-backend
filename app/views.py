@@ -249,7 +249,7 @@ def get_rank (request):
         if any(field not in data for field in required_fields):
             raise Exception('incorrect fields')
 
-        users_highest_score = db('scores').find({ 'user.fb_id' : data['fb_id'] }).sort([('score', -1 )])[0]
+        users_highest_score = db('scores').find({ 'user.fb_id' : data['fb_id'] }).sort([('score', -1 )])[0]['score']
         rank = db('scores').find({ 'score' : { '$gt' : users_highest_score } }).count()
 
         result = {   'success' :   'got rank', 'result' : { "rank" :  rank } }
