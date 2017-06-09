@@ -250,7 +250,7 @@ def get_rank (request):
             raise Exception('incorrect fields')
 
         users_highest_score = db('scores').find({ 'user.fb_id' : data['fb_id'] }).sort([('score', -1 )])[0]
-        rank = len(db('scores').find({ 'score' : { '$gt' : users_highest_score } }))
+        rank = db('scores').find({ 'score' : { '$gt' : users_highest_score } }).count()
 
         result = {   'success' :   'got rank', 'result' : { "rank" :  rank } }
         return JsonResponse(result)
