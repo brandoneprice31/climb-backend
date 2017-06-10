@@ -216,8 +216,6 @@ def get_friends_scores (request):
 @csrf_exempt
 def get_global_scores (request):
 
-    required_fields = []
-
     try:
         if request.method != 'POST' or request.content_type != 'application/json':
             raise Exception('request must be POST and application/json')
