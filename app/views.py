@@ -217,8 +217,8 @@ def get_friends_scores (request):
 def get_global_scores (request):
 
     try:
-        if request.method != 'POST' or request.content_type != 'application/json':
-            raise Exception('request must be POST and application/json')
+        if request.method != 'GET':
+            raise Exception('request must be GET')
 
         scores = db('scores').find({}).sort([('score', -1 )]).limit(100)
         result = map(lambda score:
