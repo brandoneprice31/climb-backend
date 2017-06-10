@@ -98,7 +98,19 @@
 &nbsp;&nbsp;"score"   :   int  
 }  
 
-**response:**
+**response:**  
+{ }  
+
+===================
+### POST /save_user_scores
+###### + Save a list of scores to the database.
+**request:**
+{  
+&nbsp;&nbsp;"fb_id"  :   string,  
+&nbsp;&nbsp;"scores"   :   [int]  
+}  
+
+**response:**  
 { }  
 
 ===================
