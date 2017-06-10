@@ -137,10 +137,8 @@
 }  
 
 ===================
-### POST /get_global_scores
+### GET /get_global_scores
 ###### + Gets the top 100 scores.
-**request:**
-{}
 
 **response:**
 {  
