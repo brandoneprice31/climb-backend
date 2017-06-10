@@ -257,8 +257,8 @@ def get_rank (request):
             raise Exception('user doesnt exist')
 
 
-        user_scores = db('scores').find({ 'user.fb_id' : data['fb_id'] }).sort([('score', -1 )])
-        if len(user_scores) == 0:
+        user_scores_count = db('scores').find({ 'user.fb_id' : data['fb_id'] }).sort([('score', -1 )]).count
+        if user_scores == 0:
             raise Exception('user has no scores')
 
         users_highest_score = user_scores[0]['score']
