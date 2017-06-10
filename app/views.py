@@ -222,8 +222,8 @@ def get_global_scores (request):
 
         scores = db('scores').find({}).sort([('score', -1 )]).limit(100)
         result = map(lambda score:
-            {   'first_name' : score['user']['first_name'],
-                'last_name' : score['user']['last_name'],
+            {   'first_name' : str(score['user']['first_name']),
+                'last_name' : str(score['user']['last_name']),
                 'score' : score['score']
             }, scores)
         result = {   'success' :   'got global highscores', 'result' : { "scores" :  result } }
