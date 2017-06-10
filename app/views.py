@@ -222,11 +222,6 @@ def get_global_scores (request):
         if request.method != 'POST' or request.content_type != 'application/json':
             raise Exception('request must be POST and application/json')
 
-        data = json.loads(request.body)
-
-        if any(field not in data for field in required_fields):
-            raise Exception('incorrect fields')
-
         scores = db('scores').find({}).sort([('score', -1 )]).limit(100)
         result = map(lambda score:
             {   'first_name' : score['user']['first_name'],
