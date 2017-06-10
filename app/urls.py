@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'^save_user_info$', save_user_info),
     url(r'^get_friends_scores$', get_friends_scores),
     url(r'^get_global_scores$', get_global_scores),
-    url(r'^get_rank$', get_rank)
+    url(r'^get_rank$', get_rank),
+    url(r'^save_user_scores$', save_user_scores)
 ]

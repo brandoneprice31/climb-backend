@@ -154,6 +154,48 @@ def save_score (request):
     except Exception, e:
         return JsonResponse({ 'error' : str(e) })
 
+
+@csrf_exempt
+def save_user_scores(request):
+
+    required_fields = ['fb_id', 'scores']
+
+    try:
+        if request.method != 'POST' or request.content_type != 'application/json':
+            raise Exception('request must be POST and application/json')
+
+        data = json.loads(request.body)
+
+        if any(field not in data for field in required_fields):
+            raise Exception('incorrect fields')
+
+        fb_id = data['fb_id']
+        scores = data['scores']
+
+        users = db('users')
+        user = users.find_one({ 'fb_id' : fb_id })
+        if user == None:
+            raise Exception("user " + str(fb_id) + " doesn't exist")
+
+        score_documents = map( lambda score:
+            {
+                'score' : score,
+                'user' : {
+                    'first_name' : user['first_name'],
+                    'last_name' : user['last_name'],
+                    'fb_id' : user['fb_id']
+                }
+            }
+        , scores)
+
+        db('scores').insert(score_documents)
+
+        return JsonResponse({ 'success' : 'inserted new scores' })
+
+    except Exception, e:
+        return JsonResponse({ 'error' : str(e) })
+
+
 @csrf_exempt
 def get_users_scores (request):
 
