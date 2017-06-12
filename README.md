@@ -1,4 +1,6 @@
 # climb-backend
+## About
+Climb is an iOS game designed by Collin Price and collaborated with Brandon Price. The backend is created and maintained by Brandon Price.  
 
 ## Endpoints
 
