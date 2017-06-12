@@ -243,9 +243,9 @@ def get_friends_scores (request):
         friend_ids = data['friend_ids']
         friends_scores = db('scores').find({ 'user.fb_id' : { '$in' : friend_ids } })
         result = map(lambda score:
-            {   'first_name' : score['user']['first_name'],
-                'last_name' : score['user']['last_name'],
-                'fb_id' : score['user']['fb_id'],
+            {   'first_name' : str(score['user']['first_name']),
+                'last_name' : str(score['user']['last_name']),
+                'fb_id' : str(score['user']['fb_id']),
                 'score' : score['score']
             }, friends_scores)
         result = {   'success' :   'got friends highscores', 'result' : { "scores" :  result } }
