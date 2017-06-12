@@ -216,7 +216,8 @@ def get_users_scores (request):
         if user == None:
             raise Exception("user " + str(fb_id) + " doesn't exist")
 
-        result = list(db('scores').find({ 'user.fb_id' : fb_id } ).sort([('score', -1 )]).limit(100))
+        result = db('scores').find({ 'user.fb_id' : fb_id } ).sort([('score', -1 )]).limit(100)
+        scores = map(lambda score: score['score'], result)
         result = JSONEncoder().encode({   'success' :   'got users highscores', 'result' : { "scores" :  scores } })
 
         return JsonResponse(result)
