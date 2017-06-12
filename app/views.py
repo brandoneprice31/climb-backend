@@ -241,7 +241,7 @@ def get_friends_scores (request):
             raise Exception('incorrect fields')
 
         friend_ids = data['friend_ids']
-        friends_scores = db('scores').find({ 'user.fb_id' : { '$in' : friend_ids } })
+        friends_scores = db('scores').find({ 'user.fb_id' : { '$in' : friend_ids } }).sort([('score', -1 )])
         result = map(lambda score:
             {   'first_name' : str(score['user']['first_name']),
                 'last_name' : str(score['user']['last_name']),
