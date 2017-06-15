@@ -289,8 +289,13 @@ def get_rank (request):
 
         users_highest_score = user_scores[0]['score']
 
-        rank = db('scores').find({ 'score' : { '$gt' : users_highest_score } }).count() + 1
+        scores_higher = db('scores').find({ 'score' : { '$gt' : users_highest_score } })
+        distinct_fb_id = set()
+        for score in scores_higher:
+            if score['user.fb_id'] not in distinct_fb_id:
+                distinct_fb_id.add(score['user.fb_id'])
 
+        rank = len(distinct_fb_id) + 1
         result = {   'success' :   'got rank', 'result' : { "rank" :  rank } }
         return JsonResponse(result)
 
