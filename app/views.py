@@ -241,13 +241,8 @@ def get_friends_scores (request):
             raise Exception('incorrect fields')
 
         friend_ids = data['friend_ids']
-        friends_scores = db('scores').find({ 'user.fb_id' : { '$in' : friend_ids } }).sort([('score', -1 )]).limit(100)
-        result = map(lambda score:
-            {   'first_name' : str(score['user']['first_name']),
-                'last_name' : str(score['user']['last_name']),
-                'fb_id' : str(score['user']['fb_id']),
-                'score' : score['score']
-            }, friends_scores)
+        friends_scores = db('scores').find({ 'user.fb_id' : { '$in' : friend_ids } }).sort([('score', -1 )])
+        result = GetTop100DistinctScores(friends_scores)
         result = {   'success' :   'got friends highscores', 'result' : { "scores" :  result } }
         return JsonResponse(result)
 
@@ -262,12 +257,8 @@ def get_global_scores (request):
         if request.method != 'GET':
             raise Exception('request must be GET')
 
-        scores = db('scores').find({}).sort([('score', -1 )]).limit(100)
-        result = map(lambda score:
-            {   'first_name' : str(score['user']['first_name']),
-                'last_name' : str(score['user']['last_name']),
-                'score' : score['score']
-            }, scores)
+        scores = db('scores').find({}).sort([('score', -1 )])
+        result = GetTop100DistinctScores(scores)
         result = {   'success' :   'got global highscores', 'result' : { "scores" :  result } }
         return JsonResponse(result)
 
@@ -308,6 +299,26 @@ def get_rank (request):
 
 
 
+
+def GetTop100DistinctScores(scores):
+    fb_ids = set()
+    top100 = []
+
+    for score in scores:
+        if score['user']['fb_id'] in fb_ids:
+            continue
+
+        top100.append({
+            'first_name' : str(score['user']['first_name']),
+            'last_name' : str(score['user']['last_name']),
+            'score' : score['score']
+        })
+        fb_ids.add(score['user']['fb_id'])
+
+        if len(top100) == 100:
+            break
+
+    return top100
 
 
 def JsonResponse (data):
